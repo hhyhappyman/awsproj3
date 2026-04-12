@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>오늘의 인물 명언</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- 헤더 영역 -->
+  <header class="header">
+    <div class="header__inner">
+      <h1 class="header__title">오늘의 인물 명언</h1>
+      <!-- 날짜 표시 + 달력 아이콘 -->
+      <div class="header__date-wrap">
+        <span id="displayDate" class="header__date-text"></span>
+        <button id="calendarBtn" class="header__calendar-btn" title="날짜 선택" aria-label="날짜 선택">
+          📅
+        </button>
+        <!-- 날짜 선택 input (숨김 처리, 버튼 클릭 시 열림) -->
+        <input
+          type="date"
+          id="datePicker"
+          class="header__date-picker"
+          aria-label="날짜 선택 입력"
+        />
+      </div>
+    </div>
+  </header>
+
+  <!-- 메인 콘텐츠 -->
+  <main class="main">
+    <!-- 로딩 스피너 -->
+    <div id="loadingState" class="state state--loading" hidden>
+      <div class="spinner" aria-label="불러오는 중"></div>
+      <p class="state__message">인물 정보를 불러오는 중입니다…</p>
+    </div>
+
+    <!-- 에러 상태 -->
+    <div id="errorState" class="state state--error" hidden>
+      <div class="state__icon">⚠️</div>
+      <p id="errorMessage" class="state__message">오류가 발생했습니다.</p>
+      <button id="retryBtn" class="btn btn--retry">다시 시도</button>
+    </div>
+
+    <!-- 인물 명언 카드 -->
+    <article id="quoteCard" class="card" hidden>
+      <!-- 날짜 연관 사유 뱃지 -->
+      <div id="connectionBadge" class="card__badge"></div>
+
+      <!-- 인물 정보 -->
+      <div class="card__person">
+        <h2 id="personName" class="card__name"></h2>
+        <p id="personYears" class="card__years"></p>
+        <p id="personNationality" class="card__nationality"></p>
+      </div>
+
+      <!-- 구분선 -->
+      <hr class="card__divider" />
+
+      <!-- 인물 소개 -->
+      <section class="card__section">
+        <h3 class="card__section-title">인물 소개</h3>
+        <p id="personBio" class="card__bio"></p>
+      </section>
+
+      <!-- 대표 명언 -->
+      <section class="card__section card__section--quote">
+        <h3 class="card__section-title">대표 명언</h3>
+        <blockquote id="quoteOriginal" class="card__quote-original"></blockquote>
+        <p id="quoteKorean" class="card__quote-korean"></p>
+      </section>
+
+      <!-- 날짜 연관 사유 -->
+      <section class="card__section">
+        <h3 class="card__section-title">이 날과의 인연</h3>
+        <p id="connectionDesc" class="card__connection"></p>
+      </section>
+
+      <!-- 데이터 출처 표시 -->
+      <footer class="card__footer">
+        <span id="dataSource" class="card__source"></span>
+      </footer>
+    </article>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
