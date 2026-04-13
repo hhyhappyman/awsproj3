@@ -19,13 +19,17 @@ const PORT = process.env.PORT || 3000;
 // JSON 요청 파싱
 app.use(express.json());
 
-// CORS 설정: 로컬 개발 환경(모든 출처) 허용
-app.use(cors());
+// CORS 설정: S3 버킷 도메인 및 로컬 개발 환경 허용
+const allowedOrigins = ['http://localhost:3000'];
+if (process.env.S3_BUCKET_DOMAIN) allowedOrigins.push(process.env.S3_BUCKET_DOMAIN);
+app.use(cors({
+  origin: allowedOrigins,
+}));
 
 // ─── 정적 파일 서빙 ──────────────────────────────────────────
 // 서버가 client/ 폴더의 HTML/CSS/JS를 직접 서빙하여
 // 별도의 파일 서버 없이 브라우저에서 바로 사용 가능
-app.use(express.static(path.join(__dirname, '../client')));
+app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // ─── 클라이언트 공개 설정 엔드포인트 ─────────────────────────
 // 민감하지 않은 클라이언트 설정값만 노출 (API 키 등 절대 포함 금지)
@@ -40,7 +44,7 @@ app.use('/api/quote', quoteRouter);
 
 // ─── 루트 외 모든 GET 요청 → index.html 반환 (SPA 대응) ──────
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/index.html'));
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
 // ─── 서버 시작 ────────────────────────────────────────────────

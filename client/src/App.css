@@ -1,0 +1,93 @@
+/* 기존 style.css 내용 재사용 + React 추가 스타일 */
+:root {
+  --color-bg: #f5f5f0;
+  --color-surface: #ffffff;
+  --color-primary: #2c3e50;
+  --color-accent: #e67e22;
+  --color-accent-light: #fdf2e9;
+  --color-text: #2d2d2d;
+  --color-text-muted: #777;
+  --color-border: #e0ddd6;
+  --color-error: #c0392b;
+  --color-error-bg: #fdf0ed;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --shadow-card: 0 4px 24px rgba(0,0,0,.08);
+  --shadow-hover: 0 8px 32px rgba(0,0,0,.13);
+  --font-sans: 'Segoe UI','Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+  --transition: .2s ease;
+}
+
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { font-size:16px; scroll-behavior:smooth; }
+body { font-family:var(--font-sans); background:var(--color-bg); color:var(--color-text); min-height:100vh; line-height:1.7; }
+
+/* ── 헤더 ── */
+.header { background:var(--color-primary); color:#fff; padding:1.25rem 1rem; position:sticky; top:0; z-index:100; box-shadow:0 2px 8px rgba(0,0,0,.2); }
+.header__inner { max-width:1080px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+.header__title { font-size:1.25rem; font-weight:700; letter-spacing:-.02em; }
+.header__nav { display:flex; gap:.5rem; }
+.nav-btn { background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.3); border-radius:var(--radius-sm); padding:.35rem .9rem; color:#fff; font-size:.88rem; font-weight:600; cursor:pointer; transition:background var(--transition); }
+.nav-btn:hover { background:rgba(255,255,255,.28); }
+.nav-btn--active { background:var(--color-accent); border-color:var(--color-accent); }
+
+/* ── 메인 ── */
+.main { max-width:1080px; margin:2.5rem auto; padding:0 1rem 3rem; }
+
+/* ── 날짜 바 ── */
+.date-bar { display:flex; align-items:center; gap:.75rem; margin-bottom:1.5rem; }
+.date-bar__text { font-size:1.1rem; font-weight:700; color:var(--color-primary); }
+.date-bar__input { padding:.35rem .6rem; border:1px solid var(--color-border); border-radius:var(--radius-sm); font-size:.88rem; background:var(--color-surface); cursor:pointer; }
+
+/* ── 상태 UI ── */
+.state { display:flex; flex-direction:column; align-items:center; gap:1rem; padding:3rem 1rem; text-align:center; }
+.spinner { width:48px; height:48px; border:4px solid var(--color-border); border-top-color:var(--color-accent); border-radius:50%; animation:spin .8s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.state__message { color:var(--color-text-muted); font-size:.95rem; }
+.state--error { background:var(--color-error-bg); border:1px solid #f5bfb3; border-radius:var(--radius-md); }
+.state__icon { font-size:2.5rem; }
+.state--error .state__message { color:var(--color-error); font-weight:500; }
+.btn { display:inline-block; padding:.55rem 1.4rem; border:none; border-radius:var(--radius-sm); font-size:.9rem; font-weight:600; cursor:pointer; transition:opacity var(--transition),transform var(--transition); }
+.btn:hover { opacity:.85; transform:translateY(-1px); }
+.btn--retry { background:var(--color-error); color:#fff; }
+
+/* ── 카드 ── */
+.card { background:var(--color-surface); border-radius:var(--radius-lg); box-shadow:var(--shadow-card); padding:2rem 2rem 1.5rem; transition:box-shadow var(--transition); animation:fadeInUp .45s ease both; }
+.card:hover { box-shadow:var(--shadow-hover); }
+@keyframes fadeInUp { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+.card__badge { display:inline-block; padding:.3rem .85rem; border-radius:99px; font-size:.78rem; font-weight:700; letter-spacing:.03em; text-transform:uppercase; margin-bottom:1.2rem; }
+.card__badge--birthday { background:#eafaf1; color:#1e8449; }
+.card__badge--deathday { background:#f4ecf7; color:#7d3c98; }
+.card__badge--historical_event { background:var(--color-accent-light); color:#a04000; }
+.card__person { margin-bottom:1.2rem; }
+.card__name { font-size:1.75rem; font-weight:800; color:var(--color-primary); line-height:1.2; margin-bottom:.3rem; }
+.card__years,.card__nationality { font-size:.9rem; color:var(--color-text-muted); }
+.card__divider { border:none; border-top:1px solid var(--color-border); margin:1.2rem 0; }
+.card__section { margin-bottom:1.5rem; }
+.card__section-title { font-size:.95rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--color-accent); margin-bottom:.5rem; }
+.card__bio { font-size:.95rem; line-height:1.8; }
+.card__section--quote { background:var(--color-accent-light); border-left:4px solid var(--color-accent); border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:1.2rem 1.4rem; margin-left:-.5rem; }
+.card__quote-korean { font-size:1.5rem; font-weight:700; color:var(--color-primary); line-height:1.4; margin-bottom:1rem; }
+.card__quote-original { font-size:1.5rem; font-style:italic; color:#777; line-height:1.7; padding-top:.6rem; border-top:1px dashed #f0cfa5; quotes:'\201C''\201D'; }
+.card__quote-original::before { content:open-quote; font-size:1.4em; line-height:0; vertical-align:-.3em; margin-right:.1em; color:var(--color-accent); }
+.card__quote-original::after { content:close-quote; font-size:1.4em; line-height:0; vertical-align:-.3em; margin-left:.1em; color:var(--color-accent); }
+.card__connection { font-size:.93rem; color:#555; line-height:1.75; }
+.card__footer { margin-top:1.5rem; padding-top:.8rem; border-top:1px solid var(--color-border); text-align:right; }
+.card__source { font-size:.75rem; color:#aaa; }
+.history-list { display:flex; flex-direction:column; gap:.75rem; }
+.history-item { background:var(--color-surface); border-radius:var(--radius-md); box-shadow:var(--shadow-card); padding:1rem 1.25rem; display:flex; gap:1rem; align-items:flex-start; }
+.history-item__date { font-size:.85rem; font-weight:700; color:var(--color-accent); min-width:3rem; padding-top:.2rem; }
+.history-item__body { display:flex; flex-direction:column; gap:.3rem; flex:1; }
+.history-item__name { font-size:1.2rem; font-weight:700; color:var(--color-accent); }
+.history-item__quote { font-size:1.2rem; font-weight:600; color:var(--color-text); line-height:1.4; }
+.history-item__badge { align-self:flex-end; margin-top:.3rem; font-size:.7rem; padding:.2rem .6rem; }
+
+/* ── 반응형 ── */
+@media (max-width:480px) {
+  .header__title { font-size:1.05rem; }
+  .main { margin-top:1.5rem; padding:0 .75rem 2rem; }
+  .card { padding:1.4rem 1.2rem 1.2rem; border-radius:var(--radius-md); }
+  .card__name { font-size:1.4rem; }
+  .card__section--quote { margin-left:0; }
+}

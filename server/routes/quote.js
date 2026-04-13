@@ -1,8 +1,18 @@
 // /api/quote 라우터 - 날짜별 인물 명언 조회 및 AI 생성 캐싱
 const express = require('express');
 const router = express.Router();
-const { getByDateKey, insertQuote } = require('../db');
+const { getByDateKey, insertQuote, getAllQuotes } = require('../db');
 const { fetchQuoteFromAI } = require('../ai');
+
+/** GET /api/quote/history — 저장된 전체 명언 목록 반환 */
+router.get('/history', (req, res) => {
+  try {
+    const list = getAllQuotes();
+    res.json(list);
+  } catch (err) {
+    res.status(500).json({ error: '서버 오류가 발생했습니다.' });
+  }
+});
 
 /**
  * GET /api/quote?date=MM-DD

@@ -59,4 +59,13 @@ function insertQuote(data) {
   return stmt.run(data);
 }
 
-module.exports = { getByDateKey, insertQuote };
+/**
+ * 저장된 모든 명언 목록을 최신순으로 반환한다.
+ * @returns {object[]}
+ */
+function getAllQuotes() {
+  const stmt = db.prepare('SELECT * FROM daily_quotes ORDER BY date_key ASC');
+  return stmt.all();
+}
+
+module.exports = { getByDateKey, insertQuote, getAllQuotes };
